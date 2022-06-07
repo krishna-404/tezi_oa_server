@@ -1,0 +1,30 @@
+{
+  "name": "tezi_oa_server",
+  "version": "1.0.0",
+  "description": "Tezi Order Analyser Server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krishna-404/tezi_oa_server.git"
+  },
+  "keywords": [
+    "Order",
+    "Analyser"
+  ],
+  "author": "Balkrishna Agarwal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/krishna-404/tezi_oa_server/issues"
+  },
+  "homepage": "https://github.com/krishna-404/tezi_oa_server#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongodb": "^4.6.0"
+  }
+}

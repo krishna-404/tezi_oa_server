@@ -4,7 +4,7 @@ let config = {};
 
 config.DB = process.env.CUSTOMCONNSTR_DB || process.env.DB;
 config.dbName = 'tezi_oa';
-config.urlDataCollectionName = 'orderData';
+config.orderDataCollectionName = 'orderData';
 
 config.port = process.env.PORT || 1729;
 

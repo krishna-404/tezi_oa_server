@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const config = require('./config');
 
 global.__basedir = __dirname;
@@ -10,15 +9,13 @@ const mongoUtil = require('./MongoUtil');
 const apiRoutes = require("./routes/api.js");
 
 app.use(express.static('public'));
+app.use(express.json());
 
 console.log("Server js file is loaded");
 
 mongoUtil.connectToServer((err, client) => {
-
+    console.log({err, client});
 });
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
 
 apiRoutes(app);
 
