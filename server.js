@@ -14,7 +14,7 @@ app.use(express.json());
 console.log("Server js file is loaded");
 
 mongoUtil.connectToServer((err, client) => {
-    console.log({err, client});
+    console.log("MongoDB connect. server.js line 17", {err, client});
 });
 
 apiRoutes(app);

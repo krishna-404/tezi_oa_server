@@ -9,11 +9,11 @@ const router = (app) => {
         })
 
     app 
-        .route("/order/exists/)
-        .get(orderController.ordersExist)
+        .route("/order/exists/")
+        .post(orderController.ordersExist)
 
     app
-        .route("/order/create")
+        .route("/orders/create")
         .post(orderController.createOrder)
 
 };
