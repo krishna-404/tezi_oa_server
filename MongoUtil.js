@@ -1,7 +1,7 @@
 const {MongoClient} = require('mongodb');
 const config = require('./config');
 
-let orderDataDB;
+let orderAnalystDB;
 
 let mongoUtil = {
 
@@ -10,7 +10,7 @@ let mongoUtil = {
         try {
             client.connect((err, client) => {
                 // console.log({err, client});
-                orderDataDB = client.db(config.dbName).collection(config.orderDataCollectionName);
+                orderAnalystDB = client.db(config.dbName).collection(config.orderDataCollectionName);
                 return callback(err);
             });
         } catch(e) {
@@ -19,9 +19,9 @@ let mongoUtil = {
             client.close();
         }
     },
-    getOrderDataDB : function() {
+    getOrderAnalystDB : function() {
         // console.log({urlDataDB})
-        return orderDataDB;
+        return orderAnalystDB;
     }
 }
 

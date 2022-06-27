@@ -1,7 +1,28 @@
-let orderDataDB = require('../MongoUtil').getOrderDataDB;
+let orderAnalystDB = require('../MongoUtil').getOrderAnalystDB;
 const config = require('../config');
 
 function ordersController()  {
+
+    this.lastAutoCreate = async (req, res) => {
+        
+        let lastAutoCreateTime = await orderAnalystDB().findOneAndUpdate({
+                type: "lastUpdateTimes"
+            },
+            {
+                $push:{
+                    [req.params.platformField]:{
+                        $each:[new Date().toISOString()],
+                        $position: 0
+                    }
+                }
+            }, {
+                upsert: true,
+                returnDocument: "before"
+        })
+
+        res.status(200)
+            .json(lastAutoCreateTime);
+    }
 
     this.ordersExist = async (req,res) => {
 
@@ -18,12 +39,14 @@ function ordersController()  {
 
             // console.log({getData});
 
+            let {marketplaceName, mktplSellerId} = req.body;
+
             let ordersIdsToCreate = [];
-            for (let orderId of req.body.mktplSellerId) {
-                let getData = await orderDataDB().findOne({
+            for (let orderId of req.body.pageOrderIds) {
+                let getData = await orderAnalystDB().findOne({
                     mktplOrderId: {$eq: orderId},
-                    marketplaceName: {$eq: req.body.marketplace},
-                    mktplSellerId: {$eq: req.body.mktplSellerId}
+                    marketplaceName,
+                    mktplSellerId
                 })
 
                 if(!getData){
@@ -33,32 +56,13 @@ function ordersController()  {
             
             res 
                 .status(200)
-                .json({ordersIdsToCreate, mktplSellerId: req.body.mktplSellerId});
+                .json({ordersIdsToCreate, marketplaceName, mktplSellerId});
         } else {
             res 
                 .status(404)
                 .json({status: "error", message:"Wrong API"})
         }
         
-    }
-
-    this.createOrder = async (req,res) => {
-
-        // await orderDataDB().insertOne(
-        let bulk = orderDataDB().initializeUnorderedBulkOp();
-        for (let orderData of req.body){
-            bulk.insert(orderData);
-        }
-        await bulk.execute()
-                    .then(dbRes => {
-                        console.log(dbRes);
-
-                        res .status(200)
-                            .json(dbRes)
-                            // .header("Access-Control-Allow-Origin", "*")
-                            // .type('text/html') 
-                            // .header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-                    })
     }
 }
 
