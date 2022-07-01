@@ -6,7 +6,7 @@ const shippingSchema = new Schema({
     mktplOrderIds: [{ type: String }],
     docCreatedOn: [{ type: Date, required: true }],
     mktplName: { type: String, required: true },
-    mktplSellerId: {},
+    mktplSellerId: { type: String },
     type: "shippingData",
     mktplOrderStatus: [
       {

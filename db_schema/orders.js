@@ -7,7 +7,7 @@ const orderSchema = new Schema({
   mktplSellerId: { type: String, required: true },
   sellerName: { type: String },
   type: "orderData",
-  previousAutoCreatedTime: { type: Date },
+  lastAutoCreateTime: { type: Date },
   docCreatedOn: { type: Date, required: true },
   orderApprovalDate: { type: Date },
   orderCreationDate: { type: Date, required: true },
