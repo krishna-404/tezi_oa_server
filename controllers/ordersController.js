@@ -38,8 +38,8 @@ function ordersController() {
 
       // console.log({getData});
 
-      let { marketplaceName, mktplSellerId, nextElementMarker } = req.body;
-
+      let { marketplaceName, mktplSellerId, nextElementMarker, presentTab } =
+        req.body;
       let ordersIdsToCreate = [];
       for (let orderId of req.body.pageOrderIds) {
         let getData = await orderAnalystDB().findOne({
@@ -53,14 +53,13 @@ function ordersController() {
         }
       }
 
-      res
-        .status(200)
-        .json({
-          ordersIdsToCreate,
-          marketplaceName,
-          mktplSellerId,
-          nextElementMarker,
-        });
+      res.status(200).json({
+        ordersIdsToCreate,
+        marketplaceName,
+        mktplSellerId,
+        nextElementMarker,
+        presentTab,
+      });
     } else {
       res.status(404).json({ status: "error", message: "Wrong API" });
     }
